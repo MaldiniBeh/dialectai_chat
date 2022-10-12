@@ -1,0 +1,223 @@
+<div class="{{ isDark ? 'bg-gray-800' : 'bg-white' }}">
+  <div class="flex flex-1 overflow-hidden max-w-screen-2xl h-screen m-auto">
+    <div class="p-12 w-full lg:p-20">
+      <div class="max-h-full h-full flex flex-row">
+        <!-- Aside -->
+        <aside class="w-64 lg:w-2/6 rounded-lg mr-5" aria-label="Sidebar">
+          <div
+            class="overflow-y-auto py-4 px-3  rounded  {{
+              isDark ? 'bg-gray-900' : 'bg-gray-100'
+            }} "
+          >
+            <div class="space-y-2 h-[448px]">
+              <div class="flex justify-between">
+                <span
+                  class="text-4xl font-semibold {{
+                    isDark ? 'text-white' : 'text-gray-900'
+                  }}"
+                  >Chat</span
+                >
+                <button
+                  type="button"
+                  class="text-gray-500 text-sm p-2.5"
+                  (click)="isDark = !isDark"
+                >
+                  <div *ngIf="isDark; else white">
+                    <svg
+                      class="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <ng-template #white>
+                    <svg
+                      class="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                      ></path>
+                    </svg>
+                  </ng-template>
+                </button>
+              </div>
+              <div class="w-full space-y-10">
+                <div class="cursor-pointer flex">
+                  <div class="relative w-10">
+                    <img
+                      src="/assets/img/user{{ getUser.img }}.jpg"
+                      class="rounded-full w-full h-[45px]"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="w-2 h-2 bg-green-500 rounded-full absolute ml-6 lg:bottom-[442px]"
+                  ></div>
+                  <div class="flex flex-col flex-1 pl-5">
+                    <div class="flex justify-between items-center">
+                      <div
+                        class=" font-semibold text-lg {{
+                          isDark ? 'text-gray-300' : 'text-gray-900'
+                        }}"
+                      >
+                        {{ getUser.lastName }}
+                        {{ getUser.firstName.slice(0, 4) }}...
+                      </div>
+                      <div class="text-gray-700 text-sm">2:56 pm</div>
+                    </div>
+                    <div class="text-gray-600 text-md">Hello</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <!-- Right bar -->
+        <section
+          class="relative max-h-full h-[495px] rounded-lg w-full flex flex-col lg:flex overflow-auto {{
+            isDark ? 'bg-gray-900 bgimg2' : 'bg-gray-100 bgimg'
+          }}"
+        >
+          <div class="flex-1 p-2 space-y-5">
+            <div *ngFor="let message of messageList">
+<div class="flex justify-start" *ngIf="message.id !== getUser.id;else mid">
+<div class="w-8">
+                <img
+                  src="/assets/img/user{{ getUser.img }}.jpg"
+                  class="rounded-full w-full h-8"
+                  alt=""
+                />
+              </div>
+              <div class="flex flex-col space-y-5 text-left" >
+                <div class="m-2">
+                  <span
+                    class=" text-gray-900 p-2 text-sm rounded-b-lg inline max-w-xl {{
+                      isDark ? 'text-white bg-gray-700' : 'bg-gray-400'
+                    }} "
+                  >
+                    {{ message.message }}
+                  </span>
+                </div>
+              </div>
+
+            </div>
+            <ng-template #mid>
+              <div class="flex justify-end" >
+              <div class="space-y-5 text-right">
+                <div
+                  class="bg-blue-800 text-white p-2 text-sm rounded-b-lg max-w-xl"
+                >
+                  {{ message.message }}
+                </div>
+              </div>
+            </div>
+            </ng-template>
+
+            </div>
+
+
+          </div>
+          <form
+            class="flex-none p-5 {{
+              !messageList.length ? 'absolute inset-x-0 bottom-0' : ''
+            }} "
+            [formGroup]="messageData"
+          >
+            <div>
+              <div class="relative flex">
+                <span class="absolute inset-y-0 flex items-center">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-full h-8 w-8 transaction duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
+                  >
+                    <svg
+                      class="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </button>
+                </span>
+                <input
+                  type="text"
+                  placeholder="Type something here..."
+                  class="w-full focus:outline-none focus:placeholder-gray-400  placeholder-gray-400 pl-10  {{
+                    isDark
+                      ? 'bg-gray-800 text-gray-50'
+                      : 'bg-gray-100 text-gray-600'
+                  }} rounded-full py-2 pr-2"
+                  formControlName="message"
+                />
+                <div class="ml-2">
+                  <button
+                    type="button"
+                    class="inline-flex items-center justify-center rounded-full h-8 w-8 transaction duration-500 ease-in-out text-white bg-indigo-800 hover:bg-indigo-500 focus:outline-none"
+                    [disabled]="!messageData.valid"
+                    (click)="sendMessage()"
+                  >
+                    <div *ngIf="!messageData.valid; else send">
+                      <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                        ></path>
+                      </svg>
+                    </div>
+
+                    <ng-template #send>
+                      <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M17.218,2.268L2.477,8.388C2.13,8.535,2.164,9.05,2.542,9.134L9.33,10.67l1.535,6.787c0.083,0.377,0.602,0.415,0.745,0.065l6.123-14.74C17.866,2.46,17.539,2.134,17.218,2.268 M3.92,8.641l11.772-4.89L9.535,9.909L3.92,8.641z M11.358,16.078l-1.268-5.613l6.157-6.157L11.358,16.078z"
+                        ></path>
+                      </svg>
+                    </ng-template>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
