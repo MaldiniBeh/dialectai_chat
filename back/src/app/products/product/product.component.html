@@ -1,0 +1,13 @@
+<div *ngIf="product">
+  <div [ngStyle]="{borderColor:product.color}" style="border: 5px solid transparent;padding:5px;max-width: 130px;">
+    <img src="/assets/{{product.color}}.jpg" height="100px" alt={{product.name}}>
+  </div>
+
+  <div>
+    <h5> {{ product.name}}</h5>
+    {{product.description}}
+  </div>
+
+  <div><strong>Price:</strong> {{product| productprice}}</div>
+</div>
+
