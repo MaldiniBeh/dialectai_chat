@@ -9,6 +9,7 @@
 # Node
 /front/node_modules
 /back/node_modules
+/back/owncomand.sh
 npm-debug.log
 yarn-error.log
 
