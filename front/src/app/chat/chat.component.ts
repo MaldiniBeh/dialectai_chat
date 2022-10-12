@@ -15,6 +15,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   messageList: Chat[] = []
   messageData!: FormGroup
   getUser!: User
+  oldMessage!:string
   constructor(private serviceChat: ChatService) { }
 
   ngOnInit(): void {
@@ -45,14 +46,16 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   sendMessage() {
     this.serviceChat.onSendMessage(this.messageData.value)
+   this.oldMessage = this.messageData.value.message
     this.resetForm()
   }
   realTime(){
     const fetch =  interval(1000).subscribe(()=>{
-      this.serviceChat.onSendMessageRealTime()
+        this.serviceChat.onSendMessageRealTime()
          })
      this.unbscription.push(fetch)
     }
+
 
   ngOnDestroy(): void {
     if (this.unbscription.length) this.unbscription.forEach((el)=>el.unsubscribe())
